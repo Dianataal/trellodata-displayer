@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+</style>
+<body>    
+<h1>Trello tasks</h1>
+<ol>
+<p></p>
+</ol>
+<script>
+fetch('https://api.trello.com/1/lists/63db675f0486adc369eded76/cards?key=aa3242ffa7c5b3f7ed101a7e38153656&token=ATTA03c0c1ca81cb599afc7f8d0d2480cfb98e7156d5d006f6a688fa54d8cf15122d954BE117', {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json'
+  }
+})
+
+  .then(res => {
+    console.log(res);
+    return res.json();
+  })
+
+  .then(data => {
+    data.forEach(task => {
+      const markup = `<li>${task.name}</li><p>${task.start}<br>${task.due}</p>`;
+
+      document.querySelector('ol').insertAdjacentHTML('beforeend', markup);
+    })
+    
+
+  })
+  .catch(error => console.log(error));
+</script>
+</body>
+</html>
